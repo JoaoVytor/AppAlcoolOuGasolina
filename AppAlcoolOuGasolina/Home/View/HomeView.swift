@@ -17,9 +17,29 @@ class HomeView: UIView {
         return image
     }()
     
+    lazy var logoAppImageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "LOGO")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    lazy var startButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Começar", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.setTitleColor(.white, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 8
+        button.backgroundColor = UIColor(red: 230/255, green: 0/255, blue: 127/255, alpha: 1.0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(backgroundImageView)
+        setupHierarchy()
         configConstraints()
     }
     
@@ -27,12 +47,27 @@ class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupHierarchy(){
+        addSubview(backgroundImageView)
+        addSubview(logoAppImageView)
+        addSubview(startButton)
+    }
+    
     private func configConstraints(){
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            logoAppImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            logoAppImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            logoAppImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            startButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -125),
+            startButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 60),
+            startButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60),
+            startButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 }
